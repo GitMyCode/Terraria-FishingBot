@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FishingBot.WindowsUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="FishingBot" Height="450" Width="800">
     <Grid>
         <Button Name="btn_ToggleBot" Content="Start" Click="OnToggleBotClick" HorizontalAlignment="Center" Margin="0,82,0,0" VerticalAlignment="Top" Width="140"/>
         <ScrollViewer Name="ConsoleScrollViewer" Margin="0,157,0,10" VerticalScrollBarVisibility="Visible" Width="Auto" Background="Black">
