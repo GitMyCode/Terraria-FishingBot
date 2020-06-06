@@ -62,7 +62,7 @@ jobs:
       run: powershell Copy-Item FishingBot.WindowsUI/bin/release/netcoreapp3.1/win10-x64/publish/FishingBot.WindowsUI.exe ./FishingBot.exe
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
-        zip --junk-paths -r package.zip ./FishingBot.exe
+        Compress-Archive -Path FishingBot.exe -DestinationPath package.zip
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
