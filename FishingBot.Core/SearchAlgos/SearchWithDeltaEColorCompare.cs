@@ -34,7 +34,6 @@ namespace FishingBot.Core.SearchAlgos
             var height = pixelArrays.Length;
 
             var result = new SearchResult();
-            //var exceptions = new ConcurrentQueue<Exception>();
 
             Parallel.For(0, height, (y, state) =>
             {
@@ -61,8 +60,8 @@ namespace FishingBot.Core.SearchAlgos
             var result = new SearchResult();
             var tolerance = 19;
             var subBitmap = this.GetSubBitmap(screen, pixel);
-            //var searchFromPixel = @"D:\\DEV\\code-shed\\FishingBot\\searchFromPixel.png";
-            // subBitmap.Save(searchFromPixel);
+            var height = subBitmap.Height;
+            var width = subBitmap.Width;
             var pixelArrays = this.GetPixelArray(subBitmap);
             var calculations = this.GetDeltaECalculations(pixelArrays);
 
@@ -70,7 +69,7 @@ namespace FishingBot.Core.SearchAlgos
             {
                 for (var x = 0; x < 6; x++)
                 {
-                    var totalDiff = this.SearchFromPixel(x, y, pixelArrays, calculations, out var finishedLoop);
+                    var totalDiff = this.SearchFromPixel(x, y, pixelArrays, calculations, out var finishedLoop, width, height);
                     if (finishedLoop && totalDiff / this.hookPixelCount < tolerance)
                     {
                         result = new SearchResult
@@ -87,7 +86,7 @@ namespace FishingBot.Core.SearchAlgos
             return Task.FromResult(result);
         }
 
-        public double SearchFromPixel(int x, int y, int[][] pixelArrays, DeltaECalculation[][] calculations, out bool finishedLoop, int width = 9999, int height = 9999)
+        public double SearchFromPixel(int x, int y, int[][] pixelArrays, DeltaECalculation[][] calculations, out bool finishedLoop, int width, int height)
         {
             finishedLoop = false;
             var totalDiff = 0.0;
@@ -126,9 +125,9 @@ namespace FishingBot.Core.SearchAlgos
         public Bitmap GetSubBitmap(Bitmap btm, TeraPixel pixel)
         {
             var region = 3;
-            var xStart = pixel.X - region;
+            var xStart = pixel.X - region < 0 ? 0 : pixel.X - region;
             var xEnd = pixel.X + region + this.maximumXHook;
-            var yStart = pixel.Y - region;
+            var yStart = pixel.Y - region < 0 ? 0 : pixel.Y - region;
             var yEnd = pixel.Y + region + this.maximumYHook;
             return btm.Clone(new System.Drawing.Rectangle(xStart, yStart, xEnd - xStart, yEnd - yStart), btm.PixelFormat);
         }
