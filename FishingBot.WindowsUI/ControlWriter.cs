@@ -11,11 +11,11 @@ namespace FishingBot.WindowsUI
 {
     public class ControlWriter : TextWriter
     {
-        private TextBlock textbox;
+        private TextBox textbox;
         private TaskScheduler uiScheduler;
         private ScrollViewer viewer;
 
-        public ControlWriter(TextBlock textbox, ScrollViewer viewer)
+        public ControlWriter(TextBox textbox, ScrollViewer viewer)
         {
             this.textbox = textbox;
             this.viewer = viewer;
@@ -25,7 +25,6 @@ namespace FishingBot.WindowsUI
         public override void Write(char value)
         {
             new TaskFactory(this.uiScheduler).StartNew(() => textbox.Text += value);
-            //System.Windows.Threading.Dispatcher.CurrentDispatcher.BeginInvoke(new ThreadStart(() => textbox.Text += value + "\n"));
         }
 
         public override void Write(string value)
@@ -35,9 +34,6 @@ namespace FishingBot.WindowsUI
                 this.textbox.Text += value;
                 viewer.ScrollToBottom();
             });
-
-            
-         //   System.Windows.Threading.Dispatcher.CurreDispatcher.BeginInvoke(new ThreadStart();
         }
 
         public override Encoding Encoding

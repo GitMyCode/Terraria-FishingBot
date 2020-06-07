@@ -5,11 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FishingBot.WindowsUI"
         mc:Ignorable="d"
+        Topmost="True"
         Title="FishingBot" Height="450" Width="800">
     <Grid>
-        <Button Name="btn_ToggleBot" Content="Start" Click="OnToggleBotClick" HorizontalAlignment="Center" Margin="0,82,0,0" VerticalAlignment="Top" Width="140"/>
+        <Button Name="btn_ToggleBot" Content="Start" Click="OnToggleBotClick" HorizontalAlignment="Left" Margin="18,19,0,0" VerticalAlignment="Top" Width="140"/>
         <ScrollViewer Name="ConsoleScrollViewer" Margin="0,157,0,10" VerticalScrollBarVisibility="Visible" Width="Auto" Background="Black">
-            <TextBlock Name="OutputBox" Padding="10"  Text="" TextWrapping="Wrap" Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Height="Auto"  />
+            <!--<TextBlock Name="OutputBox" Padding="10"  Text="{Binding Text, Mode=OneWay}" TextWrapping="Wrap" Foreground="White" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" Height="Auto"  />-->
+            <TextBox 
+                Name="OutputBox" 
+                Padding="10"
+                Background="Transparent"
+                Height="Auto"
+                Foreground="White"
+                     BorderThickness="0"
+                     Text="{Binding Text, Mode=OneWay}"
+                     IsReadOnly="True"
+                     TextWrapping="Wrap" />
+
         </ScrollViewer>
+        <Image Name="BotViewImage" HorizontalAlignment="Left" Height="128" Margin="177,19,0,0" VerticalAlignment="Top" Width="578"/>
     </Grid>
 </Window>
