@@ -43,7 +43,6 @@ namespace FishingBot.WindowsUI
             Console.SetOut(new ControlWriter(this.OutputBox, ConsoleScrollViewer));
             Console.WriteLine("Allo");
 
-            // System.Reflection.Assembly.GetExecutingAssembly().CodeBase
             Task.Run(async () => await Run());
             Task.Run(async () => await this.botViewScanner.Run());
         }
@@ -53,7 +52,7 @@ namespace FishingBot.WindowsUI
         {
             this.keyShorcutsListener = new KeyShorcutsListener();
 
-            ConfigureShorcuts();
+           // ConfigureShorcuts();
         }
 
         void ConfigureShorcuts()
