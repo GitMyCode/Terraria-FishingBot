@@ -19,7 +19,7 @@ namespace FishingBot.WindowsUI
             var widthRegion = 3;
             var xStart = Convert.ToInt32(width * (2 / 5.0));
             var xEnd = Convert.ToInt32(width * (3 / 5.0));
-            var yStart = Convert.ToInt32(height * (2.6 / 5.0));
+            var yStart = Convert.ToInt32(height * (2.5 / 5.0));
             var yEnd = Convert.ToInt32(height * (2.8 / 5.0));
             var snapshot = CaptureScreen(xStart, yStart, xEnd, yEnd, new Size((xEnd - xStart), (yEnd - yStart)));
             return snapshot;
