@@ -98,15 +98,16 @@ namespace FishingBot.Tests
         }
 
         [Theory]
-        [InlineData("ocean-1.png")]
-        [InlineData("ocean-2.png")]
-        [InlineData("ocean-3.png")]
-        [InlineData("ocean-4.png")]
-        [InlineData("corruption-1.png")]
-        [InlineData("corruption-2.png")]
-        [InlineData("oasis-1.png")]
-        [InlineData("oasis-2.png")]
-        [InlineData("oasis-3.png")]
+        //[InlineData("ocean-1.png")]
+        //[InlineData("ocean-2.png")]
+        //[InlineData("ocean-3.png")]
+        //[InlineData("ocean-4.png")]
+        //[InlineData("corruption-1.png")]
+        //[InlineData("corruption-2.png")]
+        //[InlineData("oasis-1.png")]
+        //[InlineData("oasis-2.png")]
+        //[InlineData("oasis-3.png")]
+        [InlineData("oasis-4.png")]
         public async Task FindHookInScreenshotSpecialBiomes(string fileName)
         {
             var filePath = $"./TestData/{fileName}";
@@ -128,7 +129,9 @@ namespace FishingBot.Tests
 
 
         [Theory]
-        [InlineData("screen-40.png", 664, 68)]
+        [InlineData("oasis-4.png", 57, 0)]
+      //  [InlineData("oasis-4.png", 291, 15)]
+       // [InlineData("screen-40.png", 664, 68)]
         public async Task FindHookInImage_WithSpecificPixel(string fileName, int x, int y)
         {
             var filePath = $"./TestData/{fileName}";
