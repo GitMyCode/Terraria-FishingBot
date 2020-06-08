@@ -1,9 +1,45 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Reflection;
 
 public static class RodHooks
 {
+
+    public class HookLoader
+    {
+        public HookLoader()
+        {
+        }
+
+        public IList<TeraPixel> Load(string hookResourceName)
+        {
+            var result = new List<TeraPixel>();
+            using (var stream = Assembly.GetAssembly(typeof(HookLoader)).GetManifestResourceStream(hookResourceName))
+            {
+                var bmp = new Bitmap(stream);
+
+                // skip the bottom since it is under water
+                for (int y = 0; y < bmp.Height - 15; y++)
+                {
+                    for (int x = 0; x < bmp.Width; x++)
+                    {
+                        var p = bmp.GetPixel(x, y);
+                        int a = p.A;
+
+                        if (a != 0) // transparent
+                        {
+                            result.Add(new TeraPixel(x, y, p));
+                        }
+                    }
+                }
+            }
+
+            return result;
+        }
+    }
+
     public class HookBuilder
     {
 
@@ -62,7 +98,9 @@ public static class RodHooks
         }
     }
 
-    public static List<TeraPixel> SitingDuckHook =
+    public static IList<TeraPixel> SitingDuckHook = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Sitting_Duck's).png");
+
+    public static List<TeraPixel> SitingDuckHook2 =
         new HookBuilder()
 
         .WithRegion(0, 8, 4, 10, "#3b3829")

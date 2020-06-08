@@ -63,25 +63,31 @@ namespace FishingBot.Tests
 
 
         [Theory]
-        [InlineData("screen-20.png")]
-        [InlineData("screen-21.png")]
-        [InlineData("screen-23.png")]
-        [InlineData("screen-24.png")]
-        [InlineData("screen-26.png")]
-        //[InlineData("screen-28.png")]
-        [InlineData("screen-32.png")]
-        [InlineData("screen-38.png")]
-        [InlineData("screen-40.png")]
-        [InlineData("screen-41.png")]
-        [InlineData("screen-42.png")]
-        [InlineData("screen-44.png")]
-        [InlineData("screen-46.png")]
-        [InlineData("screen-47.png")]
-        [InlineData("screen-62.png")]
+        //[InlineData("screen-20.png")]
+        //[InlineData("screen-21.png")]
+        //[InlineData("screen-23.png")]
+        //[InlineData("screen-24.png")]
+        //[InlineData("screen-26.png")]
+        ////[InlineData("screen-28.png")]
+        //[InlineData("screen-32.png")]
+        //[InlineData("screen-38.png")]
+        //[InlineData("screen-40.png")]
+        //[InlineData("screen-41.png")]
+        //[InlineData("screen-42.png")]
+        //[InlineData("screen-44.png")]
+        //[InlineData("screen-46.png")]
+        //[InlineData("screen-47.png")]
+        //[InlineData("screen-62.png")]
+        [InlineData("phil-1.png")]
+        [InlineData("phil-2.png")]
+        [InlineData("oasis-5.png")]
+        [InlineData("oasis-borderless-1080-1.png")]
+        [InlineData("oasis-borderless-1080-2.png")]
         public async Task FindHookInScreenshot(string fileName)
         {
             var filePath = $"./TestData/{fileName}";
             var snapshot = new Bitmap(filePath);
+            
             var searchAlgo = new SearchWithDeltaEColorCompare(RodHooks.SitingDuckHook);
             var result = await WithStopWatch(() => searchAlgo.Search(snapshot));
 
