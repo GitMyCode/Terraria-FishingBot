@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 
 using FishingBot.Core;
@@ -10,34 +12,28 @@ public class Bot
     private readonly IClicker m_Clicker;
     private readonly IScreenCapture m_ScreenCapture;
 
-    private readonly FishingMachine m_machine;
+    private FishingMachine m_machine;
     private readonly SearchWithDeltaEColorCompare m_searchWithDelta;
 
-    public Bot(IClicker clicker, IScreenCapture screenCapture)
+    private readonly IList<TeraPixel> m_rod;
+
+    public Bot(IClicker clicker, IScreenCapture screenCapture, IList<TeraPixel> rod)
     {
         this.m_Clicker = clicker;
         this.m_ScreenCapture = screenCapture;
-
-        this.m_searchWithDelta = new SearchWithDeltaEColorCompare(RodHooks.SitingDuckHook);
-        this.m_machine = new FishingMachine(this.m_Clicker, this.m_ScreenCapture, this.m_searchWithDelta);
+        this.m_rod = rod;
+        this.m_searchWithDelta = new SearchWithDeltaEColorCompare(this.m_rod);
     }
 
-    public bool TogglePause { get; set; }  = false;
-
-    public async Task Run()
+    public async Task Run(CancellationToken token)
     {
-        while (true)
+        this.m_machine = new FishingMachine(this.m_Clicker, this.m_ScreenCapture, this.m_searchWithDelta, token);
+
+        while (!token.IsCancellationRequested)
         {
-            if (TogglePause)
-            {
-                await Loop();
-            }
-            await Task.Delay(TimeSpan.FromMilliseconds(70));
+
+            await this.m_machine.Fish();
+            await Task.Delay(TimeSpan.FromMilliseconds(70), token);
         }
     }
-
-    public async Task Loop()
-    {
-        await this.m_machine.Fish();
-    }
-} 
+}

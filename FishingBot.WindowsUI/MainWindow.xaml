@@ -24,5 +24,6 @@
 
         </ScrollViewer>
         <Image Name="BotViewImage" HorizontalAlignment="Left" Height="128" Margin="177,19,0,0" VerticalAlignment="Top" Width="578"/>
+        <ComboBox Name="RodSelector" SelectionChanged="OnRodSelectionChanged" HorizontalAlignment="Left" Margin="18,74,0,0" VerticalAlignment="Top" Width="140"/>
     </Grid>
 </Window>

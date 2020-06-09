@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 using FishingBot.Core;
@@ -23,12 +24,14 @@ public class FishingMachine
     private readonly IClicker m_Clicker;
     private readonly IScreenCapture m_ScreenCapture;
     private readonly ISearchStrategy m_SearchStrategy;
+    private CancellationToken m_token;
 
-    public FishingMachine(IClicker clicker, IScreenCapture screenCapture, ISearchStrategy searchStrategy)
+    public FishingMachine(IClicker clicker, IScreenCapture screenCapture, ISearchStrategy searchStrategy, CancellationToken mToken = default)
     {
         this.m_Clicker = clicker;
         this.m_ScreenCapture = screenCapture;
         this.m_SearchStrategy = searchStrategy;
+        this.m_token = mToken;
 
         this._stateMachine = new StateMachine<State, Trigger>(State.LookingForHook);
         ConfigureStateMachine();
@@ -71,15 +74,21 @@ public class FishingMachine
 
     public async Task ThowsHook()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         await _stateMachine.FireAsync(Trigger.ThrowFishingHook);
     }
     public async Task Fish()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         await _stateMachine.FireAsync(Trigger.Fish);
     }
 
     public async Task FoundHook(TeraPixel pixel)
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         Console.WriteLine($"FoundHook : {pixel.X} {pixel.Y}");
         this._placeOfHook = pixel;
         await _stateMachine.FireAsync(_setFoundHookTrigger, pixel);
@@ -87,11 +96,15 @@ public class FishingMachine
 
     public async Task HookNotFound()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         await _stateMachine.FireAsync(Trigger.HookNotFound);
     }
 
     public async Task OnThrowHook()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         await m_Clicker.Click();
         await Task.Delay(1000);
         await Fish();
@@ -99,6 +112,8 @@ public class FishingMachine
 
     public async Task OnIsCatching()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         Console.WriteLine("OnIsCatching: Found Catch!");
         await m_Clicker.Click();
         await Task.Delay(1000);
@@ -107,7 +122,9 @@ public class FishingMachine
 
     public async Task OnLookingForHook()
     {
-        var searchResult = await Helper.WithStopWatch(() => this.m_SearchStrategy.Search(this.m_ScreenCapture.GetSnapshot()));
+        if (this.m_token.IsCancellationRequested)
+            return;
+        var searchResult = await Helper.WithStopWatch(() => this.m_SearchStrategy.Search(this.m_ScreenCapture.GetSnapshot()), "SearchHook:");
         if (searchResult.IsFound)
         {
             await FoundHook(searchResult.Pixel);
@@ -116,6 +133,8 @@ public class FishingMachine
 
     public async Task OnIsFishing()
     {
+        if (this.m_token.IsCancellationRequested)
+            return;
         try
         {
             var searchResult = await this.m_SearchStrategy.Search(this.m_ScreenCapture.GetSnapshot(), _placeOfHook);

@@ -98,7 +98,17 @@ public static class RodHooks
         }
     }
 
+    public static IList<TeraPixel> Bloody = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Bloody).png");
+    public static IList<TeraPixel> Fiberglass = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Fiberglass).png");
+    public static IList<TeraPixel> FisherOfSouls = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Fisher_of_Souls).png");
+    public static IList<TeraPixel> Fleshcatcher = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Fleshcatcher's).png");
+    public static IList<TeraPixel> Golden = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Golden).png");
+    public static IList<TeraPixel> Hotline = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Hotline's).png");
+    public static IList<TeraPixel> Mechanic = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Mechanic's).png");
+    public static IList<TeraPixel> Reinforced = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Reinforced).png");
+    public static IList<TeraPixel> Scarab = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Scarab).png");
     public static IList<TeraPixel> SitingDuckHook = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Sitting_Duck's).png");
+    public static IList<TeraPixel> Wooden = new HookLoader().Load("FishingBot.Core.fishingpoles.Bobber_(Wooden).png");
 
     public static List<TeraPixel> SitingDuckHook2 =
         new HookBuilder()
