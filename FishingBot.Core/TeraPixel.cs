@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+
 using FishingBot.Core;
 
 public class TeraPixel : ValueObject<TeraPixel>
@@ -24,6 +26,14 @@ public class TeraPixel : ValueObject<TeraPixel>
         this.X = x;
         this.Y = y;
         this.Color = System.Drawing.Color.Black;
+    }
+
+    public TeraPixel(int x, int y, Color color)
+    {
+        this.X = x;
+        this.Y = y;
+        this.Color = color;
+        this.Calculation = new DeltaECalculation(this.Color.R, this.Color.G, this.Color.B);
     }
 
     public Dictionary<byte, (double G, double B)> precomputed = new Dictionary<byte, (double, double)>();

@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingBot.Core", "FishingB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingBot.Tests", "FishingBot.Tests\FishingBot.Tests.csproj", "{AB4AF36F-D2DA-47D5-AE66-1BDA043B0716}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FishingBot.WindowsUI", "FishingBot.WindowsUI\FishingBot.WindowsUI.csproj", "{9474D343-755F-4B7D-A42F-B33B4480FD78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FishingBot.WindowsUI", "FishingBot.WindowsUI\FishingBot.WindowsUI.csproj", "{9474D343-755F-4B7D-A42F-B33B4480FD78}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
