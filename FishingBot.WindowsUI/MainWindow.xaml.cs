@@ -22,6 +22,7 @@ namespace FishingBot.WindowsUI
         private bool ToggleBot = false;
         private BotViewScanner botViewScanner;
         private CancellationTokenSource cancellationTokenSource;
+        private Thread botThread;
 
 
         public static Dictionary<string, IList<TeraPixel>> RodDictionary = new Dictionary<string, IList<TeraPixel>>()
@@ -60,18 +61,20 @@ namespace FishingBot.WindowsUI
         {
             this.ToggleBot = !this.ToggleBot;
             this.botViewScanner.ToggleBot = this.ToggleBot;
-
-            if (this.ToggleBot)
-            {
-                StartBot();
-            }
-            else
-            {
-                StopBot();
-            }
-
             btn_ToggleBot.Content = this.ToggleBot ? "Stop" : "Start";
-            Console.WriteLine(this.ToggleBot ? "Start" : "Stop");
+            Task.Run(
+                () =>
+                {
+                    if (this.ToggleBot)
+                    {
+                        StartBot();
+                    }
+                    else
+                    {
+                        StopBot();
+                    }
+                    Console.WriteLine(this.ToggleBot ? "Start" : "Stop");
+                });
         }
 
         void OnRodSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,12 +87,20 @@ namespace FishingBot.WindowsUI
         {
             this.cancellationTokenSource = new CancellationTokenSource();
 
-            Task.Factory.StartNew(() => Run(this.cancellationTokenSource.Token), TaskCreationOptions.LongRunning).ConfigureAwait(false);
+            botThread = new Thread(() => Run(this.cancellationTokenSource.Token));
+            this.botThread.Start();
         }
 
         public void StopBot()
         {
-            this.cancellationTokenSource.Cancel();
+            try
+            {
+                this.cancellationTokenSource.Cancel();
+                this.botThread.Interrupt();
+            }
+            catch (ThreadInterruptedException)
+            {
+            }
         }
 
         public async Task Run(CancellationToken token = default)
@@ -99,6 +110,7 @@ namespace FishingBot.WindowsUI
                 var bot = new Bot(new WindowsClicker(), new WindowsScreenCapture(), RodDictionary[m_selectedRod]);
                 await bot.Run(token);
             }
+            catch (ThreadInterruptedException) { }
             catch (OperationCanceledException)
             {
                 Console.WriteLine("Bot stopped");
