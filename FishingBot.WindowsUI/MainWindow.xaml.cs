@@ -33,7 +33,6 @@ namespace FishingBot.WindowsUI
             { "Golden", RodHooks.Golden },
             { "Hotline's", RodHooks.Hotline },
             { "Mechanic's", RodHooks.Mechanic },
-            { "Reinforced", RodHooks.Reinforced },
             { "Scarab", RodHooks.Scarab },
             { "Sitting Duck's", RodHooks.SitingDuckHook },
             { "Wooden", RodHooks.Wooden }
