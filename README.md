@@ -7,7 +7,7 @@ This is a Bot that will fish for you in terraria
 [![Terraria Bot Demo](https://img.youtube.com/vi/a5d_cMSvE9s/0.jpg)](https://www.youtube.com/watch?v=a5d_cMSvE9s)
 
 ## Instructions/How to use
-- Be sure to have the game play in 1920 1080 resolution
+- Be sure to have the game play in 1920x1080 or 800x600 resolution. Windowed mode preferably
 - When you start the bot you can see a small image in the window. This is what the bot see. The hook of the rod NEED to be in that zone  
 - Once you start the bot, it will start searching the hook. So place your mouse near your characters and click one time to throw the hook. After that the bot will take it from there and will click to get the catch and re-throw the hook. So all you need to do is keep the mouse in place
 - Have torches near the hook because torches give the most natural light and the bot search the hook by comparing pixel. So as much possible keep the hook in the light.
