@@ -57,7 +57,7 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Build with dotnet
-      run: dotnet publish ./FishingBot.WindowsUI/FishingBot.WindowsUI.csproj -r win10-x64 -c release /p:PublishSingleFile=true /p:PublishTrimmed=true /property:GenerateFullPaths=true
+      run: dotnet publish ./FishingBot.WindowsUI/FishingBot.WindowsUI.csproj -r win10-x64 -c release /p:PublishSingleFile=true /property:GenerateFullPaths=true
     - name: Copy file
       run: powershell Copy-Item FishingBot.WindowsUI/bin/release/netcoreapp3.1/win10-x64/publish/FishingBot.WindowsUI.exe ./FishingBot.exe
     - name: Build project # This would actually build your project, using zip for an example artifact
