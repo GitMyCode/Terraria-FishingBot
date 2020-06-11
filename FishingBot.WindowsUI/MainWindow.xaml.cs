@@ -39,12 +39,12 @@ namespace FishingBot.WindowsUI
         public MainWindow()
         {
             InitializeComponent();
-            ConsoleScrollViewer.ScrollToBottom();
-
             this.RodSelector.ItemsSource = RodDictionary.Keys;
             this.RodSelector.SelectedIndex = RodDictionary.Keys.ToList().IndexOf(m_selectedRod);
+        }
 
-            
+        void OnWindowLoaded(object sender, RoutedEventArgs e)
+        {
             this.botViewScanner = new BotViewScanner(this.BotViewImage, TaskScheduler.FromCurrentSynchronizationContext());
             Console.SetOut(new ConsoleLogWriter(this.OutputBox, ConsoleScrollViewer));
             Console.WriteLine("Allo");

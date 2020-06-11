@@ -18,7 +18,7 @@ namespace FishingBot.WindowsUI
         private StringBuilder _log = new StringBuilder();
         private const int MaxCharCount = 3000;
         private const int ChunkSize = 500;
-        private readonly TransformBlock<StringBuilder, string> _updateUiLogBlock;
+        private readonly TransformBlock<string, string> _updateUiLogBlock;
 
         public ConsoleLogWriter(TextBox textbox, ScrollViewer viewer)
         {
@@ -26,15 +26,16 @@ namespace FishingBot.WindowsUI
             this._viewer = viewer;
             this._uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-            this._updateUiLogBlock = new TransformBlock<StringBuilder, string>(
-                sb =>
+            this._updateUiLogBlock = new TransformBlock<string, string>(
+                value =>
                 {
-                    if (sb.Length > MaxCharCount)
+                    this._log.Append(value);
+                    if (this._log.Length > MaxCharCount)
                     {
-                        sb = sb.Remove(0, ChunkSize);
+                        this._log = this._log.Remove(0, ChunkSize);
                     }
 
-                    return sb.ToString();
+                    return this._log.ToString();
                 }, new ExecutionDataflowBlockOptions
             {
                 TaskScheduler = TaskScheduler.Default
@@ -48,14 +49,12 @@ namespace FishingBot.WindowsUI
 
         public override void Write(char value)
         {
-            this._log.Append(value);
-            this._updateUiLogBlock.Post(this._log);
+            this._updateUiLogBlock.Post(value.ToString());
         }
 
         public override void Write(string value)
         {
-            this._log.Append(value);
-            this._updateUiLogBlock.Post(this._log);
+            this._updateUiLogBlock.Post(value);
         }
 
         public override Encoding Encoding

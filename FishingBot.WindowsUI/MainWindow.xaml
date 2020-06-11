@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FishingBot.WindowsUI"
         mc:Ignorable="d"
         Topmost="True"
+        Loaded="OnWindowLoaded"
         Title="FishingBot" Height="450" Width="800">
     <Grid>
         <Button Name="btn_ToggleBot" Content="Start" Click="OnToggleBotClick" HorizontalAlignment="Left" Margin="18,19,0,0" VerticalAlignment="Top" Width="140"/>
