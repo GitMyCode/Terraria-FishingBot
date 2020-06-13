@@ -4,7 +4,7 @@ This is a Bot that will fish for you in terraria
 **Only work on windows sadly :(** 
 
 ## Demo
-[![Terraria Bot Demo](https://img.youtube.com/vi/a5d_cMSvE9s/0.jpg)](https://www.youtube.com/watch?v=a5d_cMSvE9s)
+[![Terraria Bot Demo](https://img.youtube.com/vi/mbXjE6Z5a9g/0.jpg)](https://www.youtube.com/watch?v=mbXjE6Z5a9g)
 
 ## Instructions/How to use
 - Be sure to have the game play in 1920x1080 or 800x600 resolution. Windowed mode preferably
