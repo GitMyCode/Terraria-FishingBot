@@ -23,10 +23,10 @@ namespace FishingBot.WindowsUI
         public static Dictionary<string, IList<TeraPixel>> RodDictionary = new Dictionary<string, IList<TeraPixel>>()
         {
             { "Bloody (Not tested)", RodHooks.Bloody },
-            { "Fiberglass (Not tested)", RodHooks.Fiberglass },
+            { "Fiberglass", RodHooks.Fiberglass },
             { "Fisher of Souls (Not tested)", RodHooks.FisherOfSouls },
             { "FleshCatcher's (Not tested)", RodHooks.Fleshcatcher },
-            { "Golden (Not tested)", RodHooks.Golden },
+            { "Golden", RodHooks.Golden },
             { "Hotline's (Not tested)", RodHooks.Hotline },
             { "Mechanic's (Not tested)", RodHooks.Mechanic },
             { "Scarab (Not tested)", RodHooks.Scarab },
