@@ -21,7 +21,7 @@ public static class RodHooks
                 var bmp = new Bitmap(stream);
 
                 // skip the bottom since it is under water
-                for (int y = 0; y < bmp.Height - 15; y++)
+                for (int y = 0; y < bmp.Height - 16; y++)
                 {
                     for (int x = 0; x < bmp.Width; x++)
                     {

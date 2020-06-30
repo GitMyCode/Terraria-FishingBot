@@ -60,6 +60,29 @@ namespace FishingBot.Tests
             hookBitmap.Save($"{Path.Combine(Environment.CurrentDirectory, "hook.png")}");
 
         }
+        
+        [Theory]
+        [InlineData("oasis-golden-01.png")]
+        [InlineData("oasis-golden-02.png")]
+        public async Task FindGoldenHook(string fileName)
+        {
+            var filePath = $"./TestData/{fileName}";
+            var snapshot = new Bitmap(filePath);
+            
+            var searchAlgo = new SearchWithDeltaEColorCompare(RodHooks.Golden);
+            var result = await WithStopWatch(() => searchAlgo.Search(snapshot));
+
+            if (result.IsFound)
+            {
+                ShowResult(result.Pixel, filePath, fileName);
+            }
+            else
+            {
+                snapshot.Save(Path.Combine("./TestData/Failed/", fileName));
+            }
+
+            Assert.True(result.IsFound);
+        }
 
 
         [Theory]
