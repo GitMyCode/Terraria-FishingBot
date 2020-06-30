@@ -26,7 +26,7 @@ namespace FishingBot.Core.SearchAlgos
 
         public Task<SearchResult> Search(Bitmap screen)
         {
-            var tolerance = 18;
+            var tolerance = 20;
             float countLoop = 0;
             var pixelArrays = this.GetPixelArray(screen);
             var calculations = this.GetDeltaECalculations(pixelArrays);

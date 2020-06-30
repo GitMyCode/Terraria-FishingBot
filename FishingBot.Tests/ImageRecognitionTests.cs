@@ -60,7 +60,29 @@ namespace FishingBot.Tests
             hookBitmap.Save($"{Path.Combine(Environment.CurrentDirectory, "hook.png")}");
 
         }
-        
+
+        [Theory]
+        [InlineData("oasis-scarab-01.png")]
+        public async Task FindScarabHook(string fileName)
+        {
+            var filePath = $"./TestData/{fileName}";
+            var snapshot = new Bitmap(filePath);
+
+            var searchAlgo = new SearchWithDeltaEColorCompare(RodHooks.Scarab);
+            var result = await WithStopWatch(() => searchAlgo.Search(snapshot));
+
+            if (result.IsFound)
+            {
+                ShowResult(result.Pixel, filePath, fileName);
+            }
+            else
+            {
+                snapshot.Save(Path.Combine("./TestData/Failed/", fileName));
+            }
+
+            Assert.True(result.IsFound);
+        }
+
         [Theory]
         [InlineData("oasis-golden-01.png")]
         [InlineData("oasis-golden-02.png")]
