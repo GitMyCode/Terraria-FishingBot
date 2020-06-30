@@ -21,3 +21,5 @@ App_Data/
 
 # Git
 *.orig
+
+.idea/**
